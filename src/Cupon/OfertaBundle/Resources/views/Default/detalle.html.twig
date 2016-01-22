@@ -1,0 +1,29 @@
+{% extends '::frontend.html.twig' %}
+
+{% block titulo %} 
+	Detalles de {{oferta.nombre}}
+{% endblock %}
+
+{% block id 'oferta' %}
+	{% block article %} 
+			{% include 'OfertaBundle:Default:includes/oferta.html.twig' %}
+	{% endblock %} 	
+
+	{% block aside %}
+		{{ parent() }}
+			<section id="relacionadas">
+				<h2>Ofertas en otras ciudades</h2>
+				<ul>
+					{% dump(relacionadas) %}
+					{% if relacionadas is not empty %}
+						{% for oferta in relacionadas %}
+							<li>{{ oferta.ciudad.nombre }}: <a href="{{ path('oferta',
+								{'ciudad':oferta.ciudad.slug,'slug':oferta.slug }) }}">
+								{{ oferta.nombre }}</a></li>
+						{% endfor %}
+					{% else %}	
+						No hay ofertas
+					{% endif %}	
+				</ul>	
+			</section>
+	{% endblock %}	

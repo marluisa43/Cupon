@@ -3,6 +3,7 @@
 namespace Cupon\OfertaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cupon\OfertaBundle\Util\Util;
 
 /**
  * Oferta
@@ -27,6 +28,13 @@ class Oferta
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
 
     /**
      * @var string
@@ -130,7 +138,7 @@ class Oferta
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-
+        $this->slug=Util::getSlug($nombre);
         return $this;
     }
 
